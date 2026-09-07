@@ -53,7 +53,9 @@ app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 300, standardHeaders:
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Too many authentication attempts. Try again later.' } });
 const writeLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 120, standardHeaders: 'draft-8', legacyHeaders: false });
 
-app.get('/api/health', (req, res) => res.json({ ok: true, service: 'boxoffice-platform-api', time: new Date().toISOString() }));
+const healthResponse = (req, res) => res.status(200).json({ ok: true, service: 'boxoffice-platform-api', time: new Date().toISOString() });
+app.get('/health', healthResponse);
+app.get('/api/health', healthResponse);
 app.use('/api/auth/login', express.json({ limit: '64kb' }), authLimiter);
 app.use('/api/auth/register-client', express.json({ limit: '64kb' }), authLimiter);
 app.use('/api/auth/admins', express.json({ limit: '64kb' }), writeLimiter);
