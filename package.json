@@ -1,0 +1,16 @@
+{
+  "name": "boxoffice-platform",
+  "private": true,
+  "version": "1.7.0",
+  "workspaces": [
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm --prefix server run dev",
+    "start": "npm --prefix server start",
+    "check": "node scripts/validate-deployment.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
