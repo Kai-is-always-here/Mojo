@@ -1,4 +1,5 @@
 /* Final auth branding polish: mobile-first, readable, and safe-area aware. */
+.auth-page .auth-brand-title{display:none!important}
 .auth-page .auth-topbar .auth-logo{width:clamp(250px,52vw,330px)!important;max-width:82vw!important;max-height:205px!important;margin-top:30px!important;object-fit:contain!important;filter:drop-shadow(0 18px 46px rgba(255,198,70,.42))!important}
 .auth-page .auth-topbar .auth-brand-subtitle{margin-top:18px!important;color:#fff!important;font-weight:900!important;letter-spacing:.095em!important;text-shadow:-1px -1px 0 rgba(0,0,0,.95),1px -1px 0 rgba(0,0,0,.95),-1px 1px 0 rgba(0,0,0,.95),1px 1px 0 rgba(0,0,0,.95),0 0 10px rgba(255,210,90,.48)!important}
 .auth-page .client-register-switch{margin-top:18px!important;font-size:18px!important;font-weight:900!important;color:#fff!important;text-shadow:-1px -1px 0 rgba(0,0,0,.95),1px -1px 0 rgba(0,0,0,.95),-1px 1px 0 rgba(0,0,0,.95),1px 1px 0 rgba(0,0,0,.95),0 0 12px rgba(255,210,90,.35)!important}
