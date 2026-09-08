@@ -95,3 +95,21 @@ body.auth-page{position:relative;isolation:isolate;min-height:100dvh;overflow-x:
  .auth-page .register-card .input{padding:6px 9px}
 }
 @media(prefers-reduced-motion:reduce){.auth-trailer{display:none}.auth-poster-fallback{opacity:1!important}}
+.auth-page .auth-topbar .auth-logo {
+  width: 220px;
+  max-width: 220px;
+  height: auto;
+  max-height: 170px;
+  margin-top: 14px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 560px) {
+  .auth-page .auth-topbar .auth-logo {
+    width: 220px;
+    max-width: 220px;
+    max-height: 170px;
+    margin-top: 14px;
+  }
+}
