@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: boxoffice-platform
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OWNER_EMAIL
+        sync: false
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: SUPABASE_URL
+        value: https://tpaklkjgpkewjbuxdepu.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ADMIN_PATH
+        value: /control/a7c91
+      - key: OWNER_PATH
+        value: /control/f4m28
+      # Keep empty for the included same-origin deployment. Set this only if the API is called by other origins.
+      - key: ALLOWED_ORIGINS
+        sync: false
