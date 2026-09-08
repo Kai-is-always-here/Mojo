@@ -1,3 +1,9 @@
+const TRAILERS = [
+  { title: 'The Odyssey', id: 'AyIZ9tiiN8I', poster: 'the-odyssey.svg' },
+  { title: 'Michael', id: 'tPutYyjGoEs', poster: 'michael.svg' },
+  { title: 'Project Hail Mary', id: 'P0XN3-n-2Lo', poster: 'project-hail-mary.svg' }
+];
+
 const POSTERS = [
   'spider-man-brand-new-day.svg',
   'the-odyssey.svg',
@@ -9,60 +15,57 @@ const POSTERS = [
 
 const root = document.querySelector('[data-auth-slideshow]');
 if (root) {
-  const base = root.dataset.posterBase || './';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const slides = [];
-  const preload = new Image();
+  const supportsIframe = !reduceMotion && TRAILERS.length > 0;
+  const soundButton = document.querySelector('[data-trailer-sound]');
+  let activeFrame = null;
+  let soundEnabled = false;
 
-  const setBackground = (el, poster) => {
-    el.style.backgroundImage = `url("${base}${poster}")`;
+  const makeIframe = (trailer) => {
+    const frame = document.createElement('iframe');
+    frame.className = 'auth-trailer';
+    frame.title = `${trailer.title} trailer`;
+    frame.loading = 'eager';
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.src = `https://www.youtube-nocookie.com/embed/${trailer.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailer.id}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3`;
+    root.appendChild(frame);
+    activeFrame = frame;
+    return frame;
   };
 
-  const createSlide = (poster, active = false) => {
-    const layer = document.createElement('div');
-    layer.className = `auth-slide${active ? ' is-active' : ''}`;
-    layer.setAttribute('aria-hidden', 'true');
-    setBackground(layer, poster);
-    root.appendChild(layer);
-    slides.push(layer);
-    return layer;
+  const postYouTube = (func, args = []) => {
+    if (!activeFrame?.contentWindow) return;
+    activeFrame.contentWindow.postMessage(JSON.stringify({
+      event: 'command',
+      func,
+      args
+    }), '*');
   };
 
-  createSlide(POSTERS[0], true);
-  if (POSTERS.length > 1) createSlide(POSTERS[1]);
-
-  let current = 0;
-  let timer = 0;
-  let nextIndex = 1;
-
-  const prepareNext = () => {
-    const poster = POSTERS[nextIndex % POSTERS.length];
-    preload.src = `${base}${poster}`;
-  };
-
-  const rotate = () => {
-    const next = (current + 1) % POSTERS.length;
-    const incoming = slides[1];
-    setBackground(incoming, POSTERS[next]);
-    incoming.classList.add('is-active');
-    slides[0].classList.remove('is-active');
-    slides.push(slides.shift());
-    current = next;
-    nextIndex = (next + 1) % POSTERS.length;
-    prepareNext();
-  };
-
-  prepareNext();
-  if (!reduceMotion && POSTERS.length > 1) {
-    const start = () => { timer = window.setInterval(rotate, 7000); };
-    if (document.visibilityState === 'visible') start();
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        window.clearInterval(timer);
-        timer = 0;
-      } else if (!timer) {
-        start();
-      }
-    });
+  if (supportsIframe) {
+    makeIframe(TRAILERS[0]);
+    if (soundButton) {
+      soundButton.hidden = false;
+      soundButton.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+          postYouTube('unMute');
+          postYouTube('setVolume', [50]);
+          soundButton.textContent = '🔊 50%';
+          soundButton.setAttribute('aria-pressed', 'true');
+        } else {
+          postYouTube('mute');
+          soundButton.textContent = '🔇 Sound';
+          soundButton.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+  } else {
+    const fallback = document.createElement('div');
+    fallback.className = 'auth-poster-fallback';
+    fallback.style.backgroundImage = `url("${root.dataset.posterBase || './'}${POSTERS[0]}")`;
+    root.appendChild(fallback);
+    if (soundButton) soundButton.hidden = true;
   }
 }
