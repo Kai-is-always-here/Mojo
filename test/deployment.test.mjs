@@ -48,6 +48,15 @@ test('all login screens expose the requested controls', () => {
   const files = ['apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'];
   for (const file of files) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
+
+    // owner/login.html is a compatibility alias that intentionally redirects
+    // to the canonical apps/owner/login.html screen. Validate the destination
+    // rather than requiring the alias document to duplicate the full UI.
+    if (file === 'owner/login.html' && /location\.replace\('\/apps\/owner\/login\.html'\)/.test(text)) {
+      assert.match(text, /\/apps\/owner\/login\.html/);
+      continue;
+    }
+
     assert.match(text, /auth-topbar/);
     assert.match(text, /auth-logo/);
     assert.match(text, /rememberMe/);
