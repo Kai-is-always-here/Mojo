@@ -18,10 +18,12 @@ const SERVER_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(SERVER_DIR, '../..');
 const CLIENT_DIR = path.join(PROJECT_ROOT, 'apps/client');
 const ADMIN_DIR = path.join(PROJECT_ROOT, 'apps/admin');
-const OWNER_DIR = path.join(PROJECT_ROOT, 'apps/owner');
+const OWNER_DIR = path.join(PROJECT_ROOT, 'owner');
 const SHARED_DIR = path.join(PROJECT_ROOT, 'shared');
 const ADMIN_PATH = process.env.ADMIN_PATH || '/control/a7c91';
 const OWNER_PATH = process.env.OWNER_PATH || '/control/f4m28';
+const ADMIN_ALIAS = '/admin';
+const OWNER_ALIAS = '/owner';
 const uploadDir = path.resolve('data/uploads');
 fs.mkdirSync(uploadDir, { recursive: true });
 
@@ -67,6 +69,12 @@ app.use('/api/orders', express.json({ limit: '256kb' }), writeLimiter, orderRout
 app.use('/api/auth', authRoutes);
 
 app.use('/shared', express.static(SHARED_DIR, { dotfiles: 'deny', maxAge: '1h' }));
+app.use(ADMIN_ALIAS, express.static(ADMIN_DIR, { dotfiles: 'deny', maxAge: '1h' }));
+app.use(OWNER_ALIAS, express.static(OWNER_DIR, { dotfiles: 'deny', maxAge: '1h' }));
+app.get(`${ADMIN_ALIAS}/login`, (req, res) => res.sendFile(path.join(ADMIN_DIR, 'login.html')));
+app.get(`${OWNER_ALIAS}/login`, (req, res) => res.sendFile(path.join(OWNER_DIR, 'login.html')));
+app.get(`${ADMIN_ALIAS}`, (req, res) => res.sendFile(path.join(ADMIN_DIR, 'index.html')));
+app.get(`${OWNER_ALIAS}`, (req, res) => res.sendFile(path.join(OWNER_DIR, 'index.html')));
 app.use(ADMIN_PATH, express.static(ADMIN_DIR, { dotfiles: 'deny', maxAge: '1h' }));
 app.use(OWNER_PATH, express.static(OWNER_DIR, { dotfiles: 'deny', maxAge: '1h' }));
 app.get(`${ADMIN_PATH}/login`, (req, res) => res.sendFile(path.join(ADMIN_DIR, 'login.html')));
