@@ -59,16 +59,16 @@ test('all login screens expose the requested controls', () => {
   }
 });
 
-test('auth slideshow has 13 local images and fast mobile presentation', () => {
+test('auth slideshow has 12 local images and fast mobile presentation', () => {
   const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
-  assert.ok(js.includes('length: 13'));
+  assert.ok(js.includes('length: 12'));
   assert.ok(css.includes('background-size:cover'));
   assert.ok(css.includes('brightness(.9)'));
   assert.ok(css.includes('100dvh'));
   assert.ok(css.includes('transition:opacity .55s ease'));
   assert.doesNotMatch(js, /youtube|vimeo|player\.vimeo/i);
-  for (let i = 1; i <= 13; i += 1) {
+  for (let i = 1; i <= 12; i += 1) {
     assert.equal(fs.existsSync(path.join(root, 'shared', 'auth', `${i}.png`)), true, `${i}.png`);
   }
 });
