@@ -1,36 +1,31 @@
-const TRAILER = {
-  title: 'The Odyssey — Official Trailer',
-  vimeoId: '1179178790',
-  poster: 'the-odyssey.svg'
-};
-
-const POSTERS = [
-  'the-odyssey.svg',
-  'spider-man-brand-new-day.svg',
-  'toy-story-5.svg',
-  'michael.svg',
-  'project-hail-mary.svg',
-  'super-mario-galaxy.svg'
-];
-
+const IMAGES = Array.from({ length: 12 }, (_, index) => `${index + 1}.png`);
 const root = document.querySelector('[data-auth-slideshow]');
-if (root) {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fallback = document.createElement('div');
-  fallback.className = 'auth-poster-fallback';
-  fallback.style.backgroundImage = `url("${root.dataset.posterBase || './'}${TRAILER.poster}")`;
-  root.replaceChildren(fallback);
 
-  if (!reduceMotion) {
-    const frame = document.createElement('iframe');
-    frame.className = 'auth-trailer';
-    frame.title = TRAILER.title;
-    frame.loading = 'eager';
-    frame.allow = 'autoplay; fullscreen; picture-in-picture';
-    frame.referrerPolicy = 'strict-origin-when-cross-origin';
-    frame.src = `https://player.vimeo.com/video/${TRAILER.vimeoId}?autoplay=1&muted=1&background=1&loop=1&autopause=0&dnt=1&playsinline=1&title=0&byline=0&portrait=0`;
-    frame.addEventListener('load', () => root.classList.add('trailer-ready'), { once: true });
-    frame.addEventListener('error', () => root.classList.remove('trailer-ready'), { once: true });
-    root.appendChild(frame);
+if (root) {
+  const base = root.dataset.posterBase || 'shared/auth/';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slides = IMAGES.map((name, index) => {
+    const slide = document.createElement('div');
+    slide.className = `auth-slide${index === 0 ? ' is-active' : ''}`;
+    slide.setAttribute('aria-hidden', 'true');
+    slide.style.backgroundImage = `url("${base}${name}")`;
+    root.appendChild(slide);
+    return slide;
+  });
+
+  // Preload the complete set so transitions stay smooth on mobile.
+  IMAGES.forEach((name) => {
+    const image = new Image();
+    image.decoding = 'async';
+    image.src = `${base}${name}`;
+  });
+
+  if (!reduceMotion && slides.length > 1) {
+    let active = 0;
+    window.setInterval(() => {
+      slides[active].classList.remove('is-active');
+      active = (active + 1) % slides.length;
+      slides[active].classList.add('is-active');
+    }, 4500);
   }
 }
