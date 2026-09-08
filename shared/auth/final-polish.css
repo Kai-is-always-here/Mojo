@@ -1,0 +1,28 @@
+/* Final auth branding polish: mobile-first, readable, and safe-area aware. */
+.auth-page .auth-topbar .auth-logo{width:clamp(250px,52vw,330px)!important;max-width:82vw!important;max-height:205px!important;margin-top:30px!important;object-fit:contain!important;filter:drop-shadow(0 18px 46px rgba(255,198,70,.42))!important}
+.auth-page .auth-topbar .auth-brand-subtitle{margin-top:18px!important;color:#fff!important;font-weight:900!important;letter-spacing:.095em!important;text-shadow:-1px -1px 0 rgba(0,0,0,.95),1px -1px 0 rgba(0,0,0,.95),-1px 1px 0 rgba(0,0,0,.95),1px 1px 0 rgba(0,0,0,.95),0 0 10px rgba(255,210,90,.48)!important}
+.auth-page .client-register-switch{margin-top:18px!important;font-size:18px!important;font-weight:900!important;color:#fff!important;text-shadow:-1px -1px 0 rgba(0,0,0,.95),1px -1px 0 rgba(0,0,0,.95),-1px 1px 0 rgba(0,0,0,.95),1px 1px 0 rgba(0,0,0,.95),0 0 12px rgba(255,210,90,.35)!important}
+.auth-page .client-register-switch a{font-size:22px!important;font-weight:900!important;color:#ffd45a!important;text-transform:uppercase!important;text-shadow:-1px -1px 0 rgba(0,0,0,.95),1px -1px 0 rgba(0,0,0,.95),-1px 1px 0 rgba(0,0,0,.95),1px 1px 0 rgba(0,0,0,.95),0 0 14px rgba(255,210,90,.58)!important}
+.auth-page .auth-box .btn{min-height:52px!important;padding:14px 18px!important;font-size:15px!important;border-radius:14px!important}
+.auth-page .auth-box .btn[disabled]{opacity:.72;cursor:wait;transform:none}
+@media(max-width:560px){
+ .auth-page .auth-layout{padding-top:clamp(130px,31vw,165px)!important;gap:10px!important}
+ .auth-page .auth-topbar .auth-logo{width:clamp(235px,66vw,300px)!important;max-width:88vw!important;max-height:185px!important;margin-top:22px!important}
+ .auth-page .auth-topbar .auth-brand-subtitle{margin-top:14px!important;font-size:clamp(8px,2.1vw,11px)!important;max-width:92vw!important}
+ .auth-page .client-register-switch{margin-top:13px!important;font-size:17px!important}
+ .auth-page .client-register-switch a{font-size:21px!important}
+ .auth-page .auth-box .btn{min-height:50px!important;padding:13px 17px!important;font-size:15px!important}
+}
+@media(max-height:700px) and (max-width:560px){
+ .auth-page .auth-layout{padding-top:104px!important}
+ .auth-page .auth-topbar .auth-logo{width:clamp(205px,58vw,255px)!important;max-height:145px!important;margin-top:12px!important}
+ .auth-page .auth-topbar .auth-brand-subtitle{margin-top:8px!important;font-size:7px!important}
+ .auth-page .client-register-switch{margin-top:8px!important;font-size:15px!important}
+ .auth-page .client-register-switch a{font-size:19px!important}
+}
+@media(orientation:landscape) and (max-height:620px){
+ .auth-page .auth-layout{padding-top:92px!important}
+ .auth-page .auth-topbar .auth-logo{width:210px!important;max-height:120px!important;margin-top:6px!important}
+ .auth-page .auth-topbar .auth-brand-subtitle{font-size:7px!important;margin-top:5px!important}
+}
+@media(prefers-reduced-motion:reduce){.auth-page .auth-topbar .auth-logo{filter:drop-shadow(0 12px 30px rgba(255,198,70,.32))!important}}
