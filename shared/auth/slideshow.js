@@ -6,8 +6,7 @@ if (root) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const firstUrl = `${base}${IMAGES[0]}`;
 
-  // First frame is available immediately; the remaining large images are
-  // warmed progressively so navigation is not blocked by a 25MB+ download.
+  // Keep the first frame visible immediately; never wait for the full page load.
   root.style.backgroundImage = `url("${firstUrl}")`;
   root.style.backgroundPosition = 'center center';
   root.style.backgroundSize = 'cover';
@@ -16,7 +15,7 @@ if (root) {
     const slide = document.createElement('div');
     slide.className = `auth-slide${index === 0 ? ' is-active' : ''}`;
     slide.setAttribute('aria-hidden', 'true');
-    if (index === 0) slide.style.backgroundImage = `url("${base}${name}")`;
+    if (index === 0) slide.style.backgroundImage = `url("${firstUrl}")`;
     root.appendChild(slide);
     return slide;
   });
@@ -27,35 +26,33 @@ if (root) {
     image.decoding = 'async';
     if ('fetchPriority' in image) image.fetchPriority = priority;
     image.src = `${base}${IMAGES[index]}`;
+    return image;
   };
 
   const reveal = (index) => {
-    if (!slides[index].style.backgroundImage) {
-      slides[index].style.backgroundImage = `url("${base}${IMAGES[index]}")`;
-    }
+    const nextUrl = `${base}${IMAGES[index]}`;
+    if (!slides[index].style.backgroundImage) slides[index].style.backgroundImage = `url("${nextUrl}")`;
     warm((index + 1) % IMAGES.length, 'high');
   };
 
-  warm(0, 'high');
+  // The browser preload in login/register handles the first image. Warm only
+  // the next frame immediately, then load the rest in idle slices.
+  warm(1, 'high');
 
   const startWarmup = () => {
-    let next = 1;
-    const step = () => {
-      if (next >= IMAGES.length) return;
-      warm(next++, 'low');
+    let next = 2;
+    const step = (deadline) => {
+      const started = performance.now();
+      while (next < IMAGES.length && (!deadline || deadline.timeRemaining() > 8) && performance.now() - started < 35) {
+        warm(next++, 'low');
+      }
       if (next < IMAGES.length) {
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(step, { timeout: 1000 });
-        } else {
-          window.setTimeout(step, 140);
-        }
+        if ('requestIdleCallback' in window) window.requestIdleCallback(step, { timeout: 1200 });
+        else window.setTimeout(() => step(null), 180);
       }
     };
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(step, { timeout: 350 });
-    } else {
-      window.setTimeout(step, 80);
-    }
+    if ('requestIdleCallback' in window) window.requestIdleCallback(step, { timeout: 450 });
+    else window.setTimeout(() => step(null), 120);
   };
 
   if (!reduceMotion && slides.length > 1) {
@@ -69,9 +66,8 @@ if (root) {
     }, 4500);
   }
 
-  if (document.readyState === 'loading') {
-    window.addEventListener('load', startWarmup, { once: true });
-  } else {
-    startWarmup();
-  }
+  // Start progressive loading as soon as the DOM is ready; it must not wait
+  // for every page asset to finish downloading.
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startWarmup, { once: true });
+  else startWarmup();
 }
