@@ -14,6 +14,6 @@
     "build:owner": "node scripts/build-pages.mjs owner"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
