@@ -53,7 +53,7 @@ test('all three login screens expose the requested controls', () => {
     assert.match(text, /rememberMe/);
     assert.match(text, /Forgot password\?/);
     assert.match(text, /password-toggle/);
-    assert.match(text, /placeholder="\.\.\."/);
+    assert.match(text, /placeholder="\.{5}"/);
     assert.match(text, /Service|Customer Service/);
     assert.match(text, /Language/);
   }
