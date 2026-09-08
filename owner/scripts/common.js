@@ -1,4 +1,4 @@
-import {getLang,setLang,t,languageOptions} from '../shared/i18n/translations.js';
+import {getLang,setLang,t,languageOptions} from '/shared/i18n/translations.js';
 export const API=(window.BO_CONFIG?.API_BASE||localStorage.getItem('bo_api')||'/api').replace(/\/$/,'');
 export const token=()=>localStorage.getItem('bo_token')||sessionStorage.getItem('bo_token');
 export const user=JSON.parse(localStorage.getItem('bo_user')||sessionStorage.getItem('bo_user')||'null');
