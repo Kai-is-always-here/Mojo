@@ -4,7 +4,6 @@ const TRAILER = {
   poster: 'the-odyssey.svg'
 };
 
-<<<<<<< HEAD
 const POSTERS = [
   'the-odyssey.svg',
   'spider-man-brand-new-day.svg',
@@ -14,8 +13,6 @@ const POSTERS = [
   'super-mario-galaxy.svg'
 ];
 
-=======
->>>>>>> b561565be3819b4e704f2ef2b601e4ebc50e2411
 const root = document.querySelector('[data-auth-slideshow]');
 if (root) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
