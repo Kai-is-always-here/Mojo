@@ -22,8 +22,8 @@ for (const app of ['client', 'admin', 'owner']) {
   const redirectFile = path.join(root, `apps/${app}/_redirects`);
   if (fs.existsSync(redirectFile)) errors.push(`Remove Cloudflare _redirects loop risk: apps/${app}/_redirects`);
   const config = path.join(root, `apps/${app}/config.js`);
-  if (fs.existsSync(config) && !fs.readFileSync(config, 'utf8').includes('box-office-mojo.up.railway.app')) {
-    errors.push(`Production API base missing: apps/${app}/config.js`);
+  if (fs.existsSync(config) && !fs.readFileSync(config, 'utf8').includes("'/api'")) {
+    errors.push(`Same-origin API base missing: apps/${app}/config.js`);
   }
 }
 

@@ -37,15 +37,17 @@ app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(helmet({ contentSecurityPolicy: false }));
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || process.env.CLIENT_ORIGIN || 'https://box-office-mojo.pages.dev').split(',').map(x => x.trim()).filter(Boolean);
-app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-    return cb(new Error('CORS origin denied'));
-  },
-  credentials: true,
-  maxAge: 600
-}));
+const configuredOrigins = (process.env.ALLOWED_ORIGINS || process.env.CLIENT_ORIGIN || '').split(',').map(x => x.trim()).filter(Boolean);
+if (configuredOrigins.length) {
+  app.use(cors({
+    origin: (origin, cb) => {
+      if (!origin || configuredOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error('CORS origin denied'));
+    },
+    credentials: true,
+    maxAge: 600
+  }));
+}
 
 app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 300, standardHeaders: 'draft-8', legacyHeaders: false }));
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Too many authentication attempts. Try again later.' } });
@@ -59,9 +61,9 @@ app.use('/api/auth/register-client', express.json({ limit: '64kb' }), authLimite
 app.use('/api/auth/admins', express.json({ limit: '64kb' }), writeLimiter);
 app.use('/api/admin', express.json({ limit: '256kb' }), writeLimiter, adminRoutes);
 app.use('/api/owner', express.json({ limit: '256kb' }), writeLimiter, ownerRoutes);
-app.use('/api/client', clientRoutes);
+app.use('/api/client', express.json({ limit: '256kb' }), clientRoutes);
 app.use('/api/messages', writeLimiter, messageRoutes);
-app.use('/api/orders', writeLimiter, orderRoutes);
+app.use('/api/orders', express.json({ limit: '256kb' }), writeLimiter, orderRoutes);
 app.use('/api/auth', authRoutes);
 
 app.use('/shared', express.static(SHARED_DIR, { dotfiles: 'deny', maxAge: '1h' }));

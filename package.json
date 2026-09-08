@@ -7,6 +7,8 @@
     "dev": "npm --prefix server run dev",
     "start": "npm --prefix server start",
     "check": "node scripts/validate-deployment.mjs",
+    "build": "npm run build:client && npm run build:admin && npm run build:owner",
+    "test": "node --test test/**/*.test.mjs",
     "build:client": "node scripts/build-pages.mjs client",
     "build:admin": "node scripts/build-pages.mjs admin",
     "build:owner": "node scripts/build-pages.mjs owner"
