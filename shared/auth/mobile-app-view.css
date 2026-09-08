@@ -1,7 +1,7 @@
-/* Mobile-app viewport shell + image slideshow */
+/* Mobile-app viewport shell + progressive image slideshow */
 .auth-page{height:100dvh;min-height:100dvh;box-sizing:border-box;overflow:hidden;overscroll-behavior:none;-webkit-overflow-scrolling:auto;}
 [data-auth-slideshow]{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#050505;}
-.auth-slide{position:absolute;inset:-1.5%;background-position:center center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:scale(1.035) translateZ(0);filter:saturate(1.04) contrast(1.05) brightness(.58);transition:opacity 1.05s ease,transform 5s ease;will-change:opacity,transform;}
+.auth-slide{position:absolute;inset:-1.5%;background-position:center center;background-size:cover;background-repeat:no-repeat;opacity:0;transform:scale(1.015) translateZ(0);filter:saturate(1.04) contrast(1.05) brightness(.9);transition:opacity .55s ease,transform 2.2s ease;will-change:opacity,transform;}
 .auth-slide.is-active{opacity:1;transform:scale(1) translateZ(0);}
 .auth-page::after{z-index:-1!important;}
 .auth-page .auth-layout{width:min(100%,560px);height:100%;min-height:0;box-sizing:border-box;justify-content:center;padding-top:clamp(92px,15vh,142px);padding-bottom:max(14px,env(safe-area-inset-bottom));}
