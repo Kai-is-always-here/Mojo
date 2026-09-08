@@ -10,7 +10,8 @@ test('required production files exist', () => {
     'Dockerfile', 'render.yaml', 'server/package.json', 'server/src/index.js',
     'server/src/db.js', 'server/src/services/storage.js',
     'supabase/migrations/20260908_production.sql',
-    'apps/client/index.html', 'apps/admin/index.html', 'apps/owner/index.html'
+    'apps/client/index.html', 'apps/admin/index.html', 'apps/owner/index.html',
+    'apps/client/login.html', 'apps/admin/login.html', 'owner/login.html'
   ];
   for (const file of required) assert.equal(fs.existsSync(path.join(root, file)), true, file);
 });
@@ -33,4 +34,34 @@ test('production CORS is opt-in', () => {
   const text = fs.readFileSync(path.join(root, 'server/src/index.js'), 'utf8');
   assert.match(text, /if \(configuredOrigins\.length\)/);
   assert.doesNotMatch(text, /'https:\/\/box-office-mojo\.pages\.dev'/);
+});
+
+test('direct admin and owner login aliases are registered', () => {
+  const text = fs.readFileSync(path.join(root, 'server/src/index.js'), 'utf8');
+  assert.match(text, /const ADMIN_ALIAS = '\/admin'/);
+  assert.match(text, /const OWNER_ALIAS = '\/owner'/);
+  assert.match(text, /ADMIN_ALIAS}\/login/);
+  assert.match(text, /OWNER_ALIAS}\/login/);
+});
+
+test('all three login screens expose the requested controls', () => {
+  const files = ['apps/client/login.html', 'apps/admin/login.html', 'owner/login.html'];
+  for (const file of files) {
+    const text = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.match(text, /auth-topbar/);
+    assert.match(text, /auth-logo/);
+    assert.match(text, /rememberMe/);
+    assert.match(text, /Forgot password\?/);
+    assert.match(text, /password-toggle/);
+    assert.match(text, /placeholder="\.\.\."/);
+    assert.match(text, /Service|Customer Service/);
+    assert.match(text, /Language/);
+  }
+});
+
+test('shared auth slideshow uses cover sizing and brighter poster treatment', () => {
+  const text = fs.readFileSync(path.join(root, 'shared/auth/slideshow.css'), 'utf8');
+  assert.match(text, /background-size:cover/);
+  assert.match(text, /brightness\(\.9\)/);
+  assert.match(text, /100dvh/);
 });
