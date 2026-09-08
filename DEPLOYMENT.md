@@ -9,15 +9,19 @@ This release is packaged as **one Docker web service**. Client, Admin, Owner and
 - `/register` → Client registration
 - `/movies` → 2026 movie catalog
 - `/support` → Customer Service
-- `/control/a7c91` → Admin workspace
-- `/control/f4m28` → Owner workspace
+- `/admin/login` → Direct Admin login
+- `/owner/login` → Direct Owner login
+- `/admin` → Admin workspace alias
+- `/owner` → Owner workspace alias
+- `/control/a7c91` → Existing Admin workspace path
+- `/control/f4m28` → Existing Owner workspace path
 - `/api/*` → backend API
 
-The Admin/Owner paths are not linked from the Client UI. This is only an additional discovery barrier; role authorization is enforced by the backend.
+The Admin/Owner paths are not linked from the Client UI except for the explicit login-to-login navigation. Direct paths are convenience entry points, not security boundaries; role authorization is enforced by the backend.
 
 ## Production hardening included
 
-- Node.js 20 Docker runtime
+- Node.js 22 LTS Docker runtime and CI baseline
 - Helmet security middleware
 - `x-powered-by` disabled
 - Same-origin deployment by default; CORS is enabled only when an explicit allow-list is supplied
@@ -35,6 +39,8 @@ The Admin/Owner paths are not linked from the Client UI. This is only an additio
 - Local JSON/filesystem fallback only for development
 - Graceful shutdown for managed hosting
 - Atomic local writes for development data
+- Mobile-first authentication UI shared by Client, Admin and Owner
+- Session-backed login when Remember Me is disabled and persistent login when it is enabled
 
 ## Required deployment secrets
 
