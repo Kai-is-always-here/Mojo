@@ -1,4 +1,4 @@
-import {getLang,setLang,t,languageOptions} from '../../../shared/i18n/translations.js';
+import {getLang,setLang,t,languageOptions} from '../shared/i18n/translations.js';
 export const API=(window.BO_CONFIG?.API_BASE||localStorage.getItem('bo_api')||'/api').replace(/\/$/,'');
 export const user=JSON.parse(localStorage.getItem('bo_user')||'null');
 export function init(){if(!user||user.role!=='admin'){location.href='login.html';return false}document.querySelectorAll('[data-lang]').forEach(e=>{e.innerHTML=languageOptions();e.onchange=x=>setLang(x.target.value)});document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));document.querySelectorAll('[data-logout]').forEach(e=>e.onclick=()=>{localStorage.removeItem('bo_token');localStorage.removeItem('bo_user');location.href='login.html'});return true}

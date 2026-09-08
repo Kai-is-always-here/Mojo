@@ -37,17 +37,15 @@ app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(helmet({ contentSecurityPolicy: false }));
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || process.env.CLIENT_ORIGIN || '').split(',').map(x => x.trim()).filter(Boolean);
-if (allowedOrigins.length) {
-  app.use(cors({
-    origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error('CORS origin denied'));
-    },
-    credentials: true,
-    maxAge: 600
-  }));
-}
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || process.env.CLIENT_ORIGIN || 'https://box-office-mojo.pages.dev').split(',').map(x => x.trim()).filter(Boolean);
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    return cb(new Error('CORS origin denied'));
+  },
+  credentials: true,
+  maxAge: 600
+}));
 
 app.use('/api', rateLimit({ windowMs: 15 * 60 * 1000, max: 300, standardHeaders: 'draft-8', legacyHeaders: false }));
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Too many authentication attempts. Try again later.' } });

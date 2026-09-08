@@ -1,4 +1,4 @@
-import {LANGUAGES,getLang,setLang,t,languageOptions} from '../../../shared/i18n/translations.js';
+import {LANGUAGES,getLang,setLang,t,languageOptions} from '../shared/i18n/translations.js';
 export const API=(window.BO_CONFIG?.API_BASE||localStorage.getItem('bo_api')||'/api').replace(/\/$/,'');
 export function initLang(){document.querySelectorAll('[data-lang]').forEach(el=>el.innerHTML=languageOptions());document.querySelectorAll('[data-lang]').forEach(el=>el.addEventListener('change',e=>setLang(e.target.value)));document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.dataset.t));document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));document.documentElement.lang=getLang();document.documentElement.dir=getLang()==='ar'?'rtl':'ltr';}
 export function token(){return localStorage.getItem('bo_token')}
