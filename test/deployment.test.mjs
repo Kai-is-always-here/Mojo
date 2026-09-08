@@ -11,7 +11,7 @@ test('required production files exist', () => {
     'server/src/db.js', 'server/src/services/storage.js',
     'supabase/migrations/20260908_production.sql',
     'apps/client/index.html', 'apps/admin/index.html', 'apps/owner/index.html',
-    'apps/client/login.html', 'apps/admin/login.html', 'owner/login.html'
+    'apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'
   ];
   for (const file of required) assert.equal(fs.existsSync(path.join(root, file)), true, file);
 });
@@ -45,7 +45,7 @@ test('direct admin and owner login aliases are registered', () => {
 });
 
 test('all three login screens expose the requested controls', () => {
-  const files = ['apps/client/login.html', 'apps/admin/login.html', 'owner/login.html'];
+  const files = ['apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'];
   for (const file of files) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
     assert.match(text, /auth-topbar/);
