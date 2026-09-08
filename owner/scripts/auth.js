@@ -1,5 +1,5 @@
 import {API} from './common.js';
-import {initLang} from '../shared/i18n/translations.js';
+import {initLang} from '/shared/i18n/translations.js';
 initLang();
 const f=document.querySelector('#login');
 const remember=document.querySelector('#rememberMe');
