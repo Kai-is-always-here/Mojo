@@ -44,7 +44,7 @@ test('direct admin and owner login aliases are registered', () => {
   assert.match(text, /OWNER_ALIAS}\/login/);
 });
 
-test('all three login screens expose the requested controls', () => {
+test('all login screens expose the requested controls', () => {
   const files = ['apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'];
   for (const file of files) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
@@ -59,9 +59,17 @@ test('all three login screens expose the requested controls', () => {
   }
 });
 
-test('shared auth slideshow uses cover sizing and brighter poster treatment', () => {
-  const text = fs.readFileSync(path.join(root, 'shared/auth/slideshow.css'), 'utf8');
-  assert.match(text, /background-size:cover/);
-  assert.match(text, /brightness\(\.9\)/);
-  assert.match(text, /100dvh/);
+test('auth slideshow has 13 local images and fast mobile presentation', () => {
+  const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
+  const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
+  assert.match(js, /Array\.from\(\{ length: 13 \}/);
+  assert.match(js, /13\.png/);
+  assert.match(css, /background-size:cover/);
+  assert.match(css, /brightness\(\.9\)/);
+  assert.match(css, /100dvh/);
+  assert.match(css, /transition:opacity \.55s ease/);
+  assert.doesNotMatch(js, /youtube|vimeo|player\.vimeo/i);
+  for (let i = 1; i <= 13; i += 1) {
+    assert.equal(fs.existsSync(path.join(root, 'shared', 'auth', `${i}.png`)), true, `${i}.png`);
+  }
 });
