@@ -87,46 +87,19 @@ body.auth-page{position:relative;isolation:isolate;min-height:100dvh;overflow-x:
  .auth-page .register-card .btn{min-height:44px;padding:10px 16px}
 }
 @media(orientation:landscape) and (max-height:620px){
- .auth-page .auth-layout{padding-top:74px}
- .auth-page .auth-topbar .auth-logo{width:128px;max-height:92px}
- .auth-page .auth-topbar .auth-brand-subtitle{font-size:7px}
- .auth-page .register-card{max-width:560px;padding:9px 16px}
- .auth-page .register-card .field{margin-bottom:4px}
- .auth-page .register-card .input{padding:6px 9px}
-}
-@media(prefers-reduced-motion:reduce){.auth-trailer{display:none}.auth-poster-fallback{opacity:1!important}}
-.auth-page .auth-topbar .auth-logo {
-  width: 220px;
-  max-width: 220px;
-  height: auto;
-  max-height: 170px;
-  margin-top: 14px;
-  object-fit: contain;
-  object-position: center;
-}
-
-@media (max-width: 560px) {
-  .auth-page .auth-topbar .auth-logo {
-    width: 220px;
-    max-width: 220px;
-    max-height: 170px;
-    margin-top: 14px;
-  }
-}
-.auth-page .auth-topbar .brand-stack {
+ .auth-page .auth-topbar .brand-stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
   width: 100%;
 }
 
 .auth-page .auth-topbar .auth-logo {
-  width: 230px;
-  height: 168px;
-  max-width: 230px;
-  max-height: 168px;
-  margin: 14px 0 0;
+  width: 286px;
+  height: 160px;
+  max-width: 286px;
+  max-height: 160px;
+  margin: 0 auto;
   object-fit: contain;
   object-position: center;
   transform: none;
@@ -137,25 +110,24 @@ body.auth-page{position:relative;isolation:isolate;min-height:100dvh;overflow-x:
 }
 
 .auth-page .auth-topbar .auth-brand-subtitle {
-  width: 260px;
-  max-width: 260px;
-  margin: 10px 0 0;
+  width: 286px;
+  max-width: 286px;
+  margin: 8px auto 0;
   text-align: center;
-  line-height: 1.2;
 }
 
 @media (max-width: 560px) {
   .auth-page .auth-topbar .auth-logo {
-    width: 230px;
-    height: 168px;
-    max-width: 230px;
-    max-height: 168px;
-    margin-top: 14px;
+    width: 286px;
+    height: 160px;
+    max-width: 286px;
+    max-height: 160px;
+    margin: 0 auto;
   }
 
   .auth-page .auth-topbar .auth-brand-subtitle {
-    width: 260px;
-    max-width: 260px;
-    margin-top: 10px;
+    width: 286px;
+    max-width: 286px;
+    margin-top: 8px;
   }
 }
