@@ -1,0 +1,55 @@
+/* Client auth refinement v2: compact cards, prominent logo, and non-YouTube cinematic background. */
+[data-auth-slideshow]{background:#050505!important}
+.auth-poster-fallback{position:absolute;inset:0;z-index:0;display:block!important;opacity:1;background-position:center 34%;background-size:cover;background-repeat:no-repeat;filter:saturate(1.06) brightness(.52);transform:scale(1.04);transition:opacity .45s ease}
+.auth-trailer{position:absolute;inset:0;z-index:1;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transform:scale(1.16);filter:saturate(1.08) contrast(1.06) brightness(.52);transition:opacity .45s ease}
+[data-auth-slideshow].trailer-ready .auth-poster-fallback{opacity:0!important}
+[data-auth-slideshow].trailer-ready .auth-trailer{opacity:1}
+.auth-page .auth-layout{padding-top:clamp(112px,15vh,148px);padding-bottom:20px;gap:11px}
+.auth-page .auth-topbar{top:max(12px,env(safe-area-inset-top))}
+.auth-page .auth-topbar .auth-logo{width:clamp(154px,31vw,218px);max-height:168px;margin-top:10px;filter:drop-shadow(0 14px 34px rgba(255,198,70,.38))}
+.auth-page .auth-topbar .auth-brand-title{display:none}
+.auth-page .auth-topbar .auth-brand-subtitle{margin-top:8px;font-size:clamp(8px,1.6vw,11px);line-height:1.35;letter-spacing:.095em;max-width:min(80vw,390px);text-shadow:0 2px 12px rgba(0,0,0,.9)}
+.auth-page .auth-box .btn{min-height:52px;padding:14px 18px;font-size:15px}
+.auth-page .client-register-switch{font-size:17px;font-weight:800;line-height:1.45;margin-top:7px;text-shadow:0 2px 12px rgba(0,0,0,.75)}
+.auth-page .client-register-switch a{font-size:19px;font-weight:900;text-transform:uppercase;letter-spacing:.03em;text-shadow:0 2px 14px rgba(255,205,70,.25)}
+.auth-page .register-card{padding:15px clamp(15px,4vw,26px) 14px;border-radius:20px}
+.auth-page .register-card .auth-title{font-size:clamp(24px,6vw,32px);margin:1px 0 5px}
+.auth-page .register-card .auth-sub{font-size:11px;line-height:1.3;margin-bottom:10px;max-width:380px}
+.auth-page .register-card .field{margin-bottom:7px}
+.auth-page .register-card .field label{font-size:10px;margin-bottom:4px}
+.auth-page .register-card .input{padding:9px 11px;font-size:13px;border-radius:10px}
+.auth-page .register-card .terms-row{font-size:10px;line-height:1.25}
+.auth-page .register-card .btn{min-height:48px;padding:12px 18px;font-size:15px}
+.auth-page .register-card .auth-switch{font-size:12px;margin-top:8px}
+@media(max-width:560px){
+ .auth-page .auth-layout{padding-top:clamp(102px,18vh,132px);padding-bottom:14px}
+ .auth-page .auth-topbar .auth-logo{width:clamp(154px,44vw,188px);max-height:142px;margin-top:7px}
+ .auth-page .auth-topbar .auth-brand-subtitle{font-size:clamp(7.5px,2.1vw,10px);margin-top:7px;max-width:92vw}
+ .auth-page .auth-box{padding:15px 14px 14px}
+ .auth-page .client-register-switch{font-size:16px}
+ .auth-page .client-register-switch a{font-size:18px}
+ .auth-page .register-card{padding:13px}
+ .auth-page .register-card .field{margin-bottom:6px}
+ .auth-page .register-card .input{padding:8px 10px;font-size:12.5px}
+ .auth-page .register-card .btn{min-height:46px;font-size:15px}
+}
+@media(max-height:720px) and (max-width:560px){
+ .auth-page .auth-layout{padding-top:88px}
+ .auth-page .auth-topbar .auth-logo{width:150px;max-height:110px;margin-top:4px}
+ .auth-page .auth-topbar .auth-brand-subtitle{font-size:7px;margin-top:3px}
+ .auth-page .register-card{padding:10px 12px}
+ .auth-page .register-card .auth-title{font-size:23px}
+ .auth-page .register-card .auth-sub{font-size:10px;margin-bottom:7px}
+ .auth-page .register-card .field{margin-bottom:5px}
+ .auth-page .register-card .input{padding:7px 9px}
+ .auth-page .register-card .btn{min-height:44px;padding:10px 16px}
+}
+@media(orientation:landscape) and (max-height:620px){
+ .auth-page .auth-layout{padding-top:74px}
+ .auth-page .auth-topbar .auth-logo{width:128px;max-height:92px}
+ .auth-page .auth-topbar .auth-brand-subtitle{font-size:7px}
+ .auth-page .register-card{max-width:560px;padding:9px 16px}
+ .auth-page .register-card .field{margin-bottom:4px}
+ .auth-page .register-card .input{padding:6px 9px}
+}
+@media(prefers-reduced-motion:reduce){.auth-trailer{display:none}.auth-poster-fallback{opacity:1!important}}
