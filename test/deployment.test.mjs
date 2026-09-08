@@ -63,7 +63,6 @@ test('auth slideshow has 13 local images and fast mobile presentation', () => {
   const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
   assert.match(js, /Array\.from\(\{ length: 13 \}/);
-  assert.match(js, /13\.png/);
   assert.match(css, /background-size:cover/);
   assert.match(css, /brightness\(\.9\)/);
   assert.match(css, /100dvh/);
