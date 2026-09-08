@@ -59,15 +59,18 @@ test('all login screens expose the requested controls', () => {
   }
 });
 
-test('auth slideshow has 12 local images and fast mobile presentation', () => {
+test('auth slideshow has exactly 12 local images and polished mobile presentation', () => {
   const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
   assert.ok(js.includes('length: 12'));
   assert.ok(css.includes('background-size:cover'));
-  assert.ok(css.includes('brightness(.9)'));
+  assert.ok(css.includes('brightness(.96)'));
   assert.ok(css.includes('100dvh'));
-  assert.ok(css.includes('transition:opacity .55s ease'));
+  assert.ok(css.includes('transition:opacity .9s ease-in-out'));
+  assert.ok(css.includes('backdrop-filter:blur(3px)'));
+  assert.ok(css.includes('translateY(15px)'));
   assert.doesNotMatch(js, /youtube|vimeo|player\.vimeo/i);
+  assert.equal(fs.existsSync(path.join(root, 'shared', 'auth', '13.png')), false, '13.png must not be part of the auth image set');
   for (let i = 1; i <= 12; i += 1) {
     assert.equal(fs.existsSync(path.join(root, 'shared', 'auth', `${i}.png`)), true, `${i}.png`);
   }
