@@ -1,2 +1,2 @@
-/admin/login /admin/login.html 302
-/owner/login /owner/login.html 302
+/admin/login /apps/admin/login.html 302
+/owner/login /apps/owner/login.html 302
