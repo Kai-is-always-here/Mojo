@@ -1,3 +1,10 @@
+/ /index.html 200
 /login /apps/client/login.html 200
-/admin/login /apps/admin/login.html 302
-/owner/login /apps/owner/login.html 302
+/register /apps/client/register.html 200
+/client /apps/client/index.html 200
+/client/login /apps/client/login.html 200
+/client/register /apps/client/register.html 200
+/admin /apps/admin/index.html 200
+/admin/login /apps/admin/login.html 200
+/owner /apps/owner/index.html 200
+/owner/login /apps/owner/login.html 200
