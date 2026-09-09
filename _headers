@@ -1,0 +1,9 @@
+# Keep entry HTML and auth assets fresh after Cloudflare Pages deploys.
+/login
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/shared/auth/*
+  Cache-Control: public, max-age=0, must-revalidate
