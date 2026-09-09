@@ -1,6 +1,7 @@
-/ /index.html 200
+/ /mobile/login.html 200
 /login /mobile/login.html 200
 /register /mobile/register.html 200
+/service /mobile/service.html 200
 /client /mobile/client/index.html 200
 /client/login /mobile/login.html 200
 /client/register /mobile/register.html 200
