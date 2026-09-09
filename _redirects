@@ -8,3 +8,5 @@
 /admin/login /apps/admin/login.html 200
 /owner /apps/owner/index.html 200
 /owner/login /apps/owner/login.html 200
+/apps/client/logo.png /assets/logo.png 200
+/apps/client/favicon.ico /assets/favicon.ico 200
