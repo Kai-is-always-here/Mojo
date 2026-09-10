@@ -5,10 +5,6 @@
 /register.html /mobile/register.html 200
 /service /mobile/service.html 200
 /service.html /mobile/service.html 200
-/support /mobile/service.html 200
-/apps/client/login.html /mobile/login.html 200
-/apps/client/register.html /mobile/register.html 200
-/apps/client/support.html /mobile/service.html 200
 /client /mobile/client/index.html 200
 /client/login /mobile/login.html 200
 /client/register /mobile/register.html 200
