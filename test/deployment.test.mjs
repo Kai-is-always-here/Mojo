@@ -11,7 +11,7 @@ test('required production files exist', () => {
     'server/src/db.js', 'server/src/services/storage.js',
     'supabase/migrations/20260908_production.sql',
     'apps/client/index.html', 'apps/admin/index.html', 'apps/owner/index.html',
-    'apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'
+    'apps/client/login.html', 'apps/client/register.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'
   ];
   for (const file of required) assert.equal(fs.existsSync(path.join(root, file)), true, file);
 });
@@ -48,15 +48,10 @@ test('all login screens expose the requested controls', () => {
   const files = ['apps/client/login.html', 'apps/admin/login.html', 'apps/owner/login.html', 'owner/login.html'];
   for (const file of files) {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
-
-    // owner/login.html is a compatibility alias that intentionally redirects
-    // to the canonical apps/owner/login.html screen. Validate the destination
-    // rather than requiring the alias document to duplicate the full UI.
     if (file === 'owner/login.html' && /location\.replace\('\/apps\/owner\/login\.html'\)/.test(text)) {
       assert.match(text, /\/apps\/owner\/login\.html/);
       continue;
     }
-
     assert.match(text, /auth-topbar/);
     assert.match(text, /auth-logo/);
     assert.match(text, /rememberMe/);
@@ -68,13 +63,14 @@ test('all login screens expose the requested controls', () => {
   }
 });
 
-test('auth header controls stay in the viewport corners', () => {
+test('auth header controls stay in the viewport corners and use one color', () => {
   const css = fs.readFileSync(path.join(root, 'shared/auth/final-polish.css'), 'utf8');
   assert.match(css, /\.auth-page \.auth-topbar\{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100vw!important/);
   assert.match(css, /\.auth-page \.auth-topbar \.icon-btn\{pointer-events:auto!important/);
-  assert.match(css, /\.auth-page \.auth-topbar \.icon-btn:first-child\{justify-self:start!important;color:#8a6a1f!important/);
+  assert.match(css, /\.auth-page \.auth-topbar \.icon-btn:first-child\{justify-self:start!important;color:#d5d9d8!important/);
   assert.match(css, /\.auth-page \.auth-topbar #languageBtn\{justify-self:end!important;color:#d5d9d8!important/);
   assert.match(css, /\.auth-page \.auth-topbar \.icon-btn\{[^}]*border:0!important;[^}]*background:transparent!important/);
+  assert.match(css, /\.auth-page \.auth-topbar \.auth-logo\{[^}]*object-fit:cover!important;[^}]*object-position:center 52%!important/);
 });
 
 test('public mobile auth controls and logo presentation match the reference layout', () => {
@@ -95,9 +91,22 @@ test('public mobile auth controls and logo presentation match the reference layo
   }
 });
 
-test('public route aliases prevent direct .html page errors', () => {
+test('legacy client auth pages use canonical assets and routes', () => {
+  for (const file of ['apps/client/login.html', 'apps/client/register.html']) {
+    const text = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.match(text, /href="\/service"/);
+    assert.match(text, /src="\/assets\/logo\.png"/);
+    assert.match(text, /loading="eager"/);
+  }
+  const login = fs.readFileSync(path.join(root, 'apps/client/login.html'), 'utf8');
+  const register = fs.readFileSync(path.join(root, 'apps/client/register.html'), 'utf8');
+  assert.match(login, /href="\/register"/);
+  assert.match(register, /href="\/login"/);
+});
+
+test('public route aliases prevent direct page errors', () => {
   const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
-  for (const alias of ['/login.html', '/register.html', '/service.html', '/client/index.html', '/admin/login.html', '/admin/index.html', '/owner/login.html', '/owner/index.html']) {
+  for (const alias of ['/login.html', '/register.html', '/service.html', '/support', '/apps/client/login.html', '/apps/client/register.html', '/apps/client/support.html', '/client/index.html', '/admin/login.html', '/admin/index.html', '/owner/login.html', '/owner/index.html']) {
     assert.match(redirects, new RegExp(`^${alias.replaceAll('.', '\\.')}\\s`, 'm'), alias);
   }
 });
