@@ -77,6 +77,31 @@ test('auth header controls stay in the viewport corners', () => {
   assert.match(css, /\.auth-page \.auth-topbar \.icon-btn\{[^}]*border:0!important;[^}]*background:transparent!important/);
 });
 
+test('public mobile auth controls and logo presentation match the reference layout', () => {
+  const css = fs.readFileSync(path.join(root, 'mobile/style.css'), 'utf8');
+  assert.match(css, /\.top-btn\.icon-only\.service-icon\{color:#d5d9d8\}/);
+  assert.match(css, /\.top-btn\.icon-only\.language-icon\{color:#d5d9d8\}/);
+  assert.match(css, /\.logo\{[^}]*object-fit:cover;[^}]*object-position:center 52%/);
+  assert.match(css, /\.logo\{[^}]*width:clamp\(280px,92vw,420px\)/);
+
+  const files = ['mobile/login.html', 'mobile/register.html', 'mobile/admin/login.html', 'mobile/owner/login.html'];
+  for (const file of files) {
+    const text = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.match(text, /top-btn icon-only service-icon/);
+    assert.match(text, /top-btn icon-only language-icon/);
+    assert.match(text, /href="\/service"/);
+    assert.match(text, /href="\/assets\/logo\.png"/);
+    assert.match(text, /loading="eager"/);
+  }
+});
+
+test('public route aliases prevent direct .html page errors', () => {
+  const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
+  for (const alias of ['/login.html', '/register.html', '/service.html', '/client/index.html', '/admin/login.html', '/admin/index.html', '/owner/login.html', '/owner/index.html']) {
+    assert.match(redirects, new RegExp(`^${alias.replaceAll('.', '\\.')}\\s`, 'm'), alias);
+  }
+});
+
 test('auth slideshow has exactly 12 local images and polished mobile presentation', () => {
   const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
