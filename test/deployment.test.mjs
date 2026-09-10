@@ -68,6 +68,15 @@ test('all login screens expose the requested controls', () => {
   }
 });
 
+test('auth header controls stay in the viewport corners', () => {
+  const css = fs.readFileSync(path.join(root, 'shared/auth/final-polish.css'), 'utf8');
+  assert.match(css, /\.auth-page \.auth-topbar\{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100vw!important/);
+  assert.match(css, /\.auth-page \.auth-topbar \.icon-btn\{pointer-events:auto!important/);
+  assert.match(css, /\.auth-page \.auth-topbar \.icon-btn:first-child\{justify-self:start!important;color:#8a6a1f!important/);
+  assert.match(css, /\.auth-page \.auth-topbar #languageBtn\{justify-self:end!important;color:#d5d9d8!important/);
+  assert.match(css, /\.auth-page \.auth-topbar \.icon-btn\{[^}]*border:0!important;[^}]*background:transparent!important/);
+});
+
 test('auth slideshow has exactly 12 local images and polished mobile presentation', () => {
   const js = fs.readFileSync(path.join(root, 'shared/auth/slideshow.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'shared/auth/mobile-app-view.css'), 'utf8');
