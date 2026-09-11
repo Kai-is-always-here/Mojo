@@ -1,0 +1,24 @@
+# Keep entry HTML and branding assets fresh after Cloudflare Pages deploys.
+/login
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/register
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/assets/logo.png
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/favicon.ico
+  Cache-Control: public, max-age=0, must-revalidate
+
+/logo.png
+  Cache-Control: public, max-age=0, must-revalidate
+
+/favicon.ico
+  Cache-Control: public, max-age=0, must-revalidate
+
+/shared/auth/*
+  Cache-Control: public, max-age=0, must-revalidate

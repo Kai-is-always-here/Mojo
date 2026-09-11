@@ -1,0 +1,118 @@
+/* Mojo Unified Mobile-First UI System
+   Loaded by every app through shared/styles/base.css.
+   Goals: 320px+ phones, tablets, desktop, landscape, safe-area support,
+   no accidental horizontal overflow, predictable grids, touch targets,
+   and a single responsive sizing model across Client/Admin/Owner. */
+:root{
+  --ui-gutter:clamp(12px,4vw,28px);
+  --ui-max:1120px;
+  --ui-touch:44px;
+  --ui-gap:clamp(10px,2vw,18px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{width:100%;min-width:0;overflow-x:hidden;scroll-behavior:smooth}
+body{width:100%;min-width:0;max-width:100%;margin:0;overflow-x:hidden;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}
+img,svg,video,canvas,iframe{max-width:100%;height:auto}
+button,input,select,textarea{max-width:100%;min-width:0}
+button,a,[role="button"]{touch-action:manipulation}
+a{overflow-wrap:anywhere}
+.app-shell,.admin-shell,.owner-shell,.page,.admin-content,.owner-content{min-width:0;max-width:100%}
+.container{width:min(var(--ui-max),calc(100% - 2*var(--ui-gutter)));margin-inline:auto;min-width:0}
+.page{padding-block:clamp(12px,2.5vw,24px)}
+.row,.between,.toolbar,.section-head{min-width:0}
+.row>*{min-width:0}
+.grid>*{min-width:0}
+.card,.stat,.notice,.notice-card,.profile-card,.movie,.auth-box{min-width:0;max-width:100%}
+.grid{gap:var(--ui-gap)}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.movie-grid{grid-template-columns:repeat(4,minmax(0,1fr));min-width:0}
+.table-wrap{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+table{max-width:none}
+.btn,.icon-btn,.admin-nav a,.owner-nav a{min-height:var(--ui-touch)}
+.btn{max-width:100%}
+.light-input,.input,input,select,textarea{width:100%;max-width:100%}
+.topbar{padding-inline:max(12px,env(safe-area-inset-left)) max(12px,env(safe-area-inset-right));padding-top:env(safe-area-inset-top)}
+.bottom-nav{padding-inline:max(4px,env(safe-area-inset-left)) max(4px,env(safe-area-inset-right));padding-bottom:env(safe-area-inset-bottom);height:calc(74px + env(safe-area-inset-bottom))}
+.bottom-nav a{min-width:0;min-height:44px}
+.admin-shell,.owner-shell{min-height:100dvh}
+.side{min-width:0}
+.admin-content,.owner-content{padding-bottom:max(40px,env(safe-area-inset-bottom))}
+.admin-nav,.owner-nav{display:flex;gap:8px;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none}
+.admin-nav::-webkit-scrollbar,.owner-nav::-webkit-scrollbar{display:none}
+.admin-nav a,.owner-nav a{flex:0 0 auto;white-space:nowrap}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.toolbar>*{min-width:0}
+.toolbar .search{flex:1 1 220px;min-width:min(220px,100%)}
+.section-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.section-head>*{min-width:0}
+.notice-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.notice-card>div{min-width:0;flex:1 1 220px}
+.notice-card .btn{flex:0 1 auto}
+.profile-card{overflow:hidden}
+.chat-card,.chat-form,.message-list{min-width:0}
+.chat-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.message{min-width:0;overflow-wrap:anywhere}
+.attachment{max-width:100%;overflow-wrap:anywhere}
+/* Prevent long user-generated strings from breaking layouts. */
+h1,h2,h3,h4,h5,h6,p,span,strong,b,small,label,td,th{overflow-wrap:anywhere}
+
+@media(max-width:900px){
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .movie-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  :root{--ui-gutter:clamp(10px,4vw,16px);--ui-gap:12px}
+  .container{width:calc(100% - 2*var(--ui-gutter))}
+  .page{padding-block:12px 18px}
+  .grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
+  .movie-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card,.stat{padding:clamp(13px,4vw,17px)}
+  .toolbar .search{flex-basis:100%;width:100%}
+  .notice-card{align-items:stretch}
+  .notice-card .btn{width:100%}
+  .row{flex-wrap:wrap}
+  .row>*{max-width:100%}
+  .section-head{align-items:flex-start}
+}
+@media(max-width:380px){
+  :root{--ui-gutter:8px}
+  .movie-grid{grid-template-columns:1fr}
+  .bottom-nav a{font-size:12px}
+  .bottom-nav .icon{font-size:22px}
+}
+@media(orientation:landscape) and (max-height:620px){
+  .app-shell{padding-bottom:70px}
+  .page{padding-block:10px 14px}
+  .hero{height:clamp(110px,28vh,150px)}
+  .bottom-nav{height:64px}
+  .bottom-nav a{min-height:40px;font-size:11px}
+  .bottom-nav .icon{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* Runtime viewport adaptation: responsive.js updates --app-height when browser chrome,
+   orientation, or the virtual keyboard changes the visible mobile viewport. */
+html,body{min-height:var(--app-height,100dvh)}
+body{min-height:var(--app-height,100dvh)}
+.app-shell,.admin-shell,.owner-shell,.auth-page{min-height:var(--app-height,100dvh)}
+main,section,aside,header,nav{max-width:100%}
+@media(max-width:600px){
+  body{font-size:clamp(14px,3.8vw,16px)}
+  .topbar h1{max-width:calc(100% - 112px);font-size:clamp(20px,6vw,26px);line-height:1.12;text-align:center}
+  .lang-select{max-width:92px;font-size:12px}
+  .stat b{font-size:clamp(20px,7vw,28px)}
+  .btn,.light-input,.input,button,input,select,textarea{font-size:16px}
+  textarea{resize:vertical}
+  .table-wrap{border-radius:14px}
+  table{min-width:600px}
+}
+html[data-viewport="compact"] .grid-4,
+html[data-viewport="compact"] .grid-3,
+html[data-viewport="compact"] .grid-2{grid-template-columns:1fr}
+html[data-orientation="landscape"] .bottom-nav{height:calc(62px + env(safe-area-inset-bottom))}

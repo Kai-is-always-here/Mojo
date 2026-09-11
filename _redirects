@@ -1,0 +1,57 @@
+/ /login 302
+/login /apps/client/login.html 200
+/login.html /apps/client/login.html 200
+/register /apps/client/register.html 200
+/register.html /apps/client/register.html 200
+/service /support 200
+/service.html /support 200
+/support /apps/client/support.html 200
+/support.html /apps/client/support.html 200
+/movies /apps/client/movies.html 200
+
+/client /apps/client/index.html 200
+/client/ /apps/client/index.html 200
+/client/login /apps/client/login.html 200
+/client/register /apps/client/register.html 200
+/client/index.html /apps/client/index.html 200
+/client/start /apps/client/start.html 200
+/client/start.html /apps/client/start.html 200
+/client/movies /apps/client/movies.html 200
+/client/movies.html /apps/client/movies.html 200
+/client/history /apps/client/history.html 200
+/client/history.html /apps/client/history.html 200
+/client/profile /apps/client/profile.html 200
+/client/profile.html /apps/client/profile.html 200
+/client/support /apps/client/support.html 200
+/client/support.html /apps/client/support.html 200
+
+/admin /apps/admin/index.html 200
+/admin/ /apps/admin/index.html 200
+/admin/login /apps/admin/login.html 200
+/admin/login.html /apps/admin/login.html 200
+/admin/index.html /apps/admin/index.html 200
+/admin/clients /apps/admin/clients.html 200
+/admin/clients.html /apps/admin/clients.html 200
+/admin/messages /apps/admin/messages.html 200
+/admin/messages.html /apps/admin/messages.html 200
+/admin/settings /apps/admin/settings.html 200
+/admin/settings.html /apps/admin/settings.html 200
+
+/owner /apps/owner/index.html 200
+/owner/ /apps/owner/index.html 200
+/owner/login /apps/owner/login.html 200
+/owner/login.html /apps/owner/login.html 200
+/owner/index.html /apps/owner/index.html 200
+/owner/admins /apps/owner/admins.html 200
+/owner/admins.html /apps/owner/admins.html 200
+/owner/clients /apps/owner/clients.html 200
+/owner/clients.html /apps/owner/clients.html 200
+/owner/settings /apps/owner/settings.html 200
+/owner/settings.html /apps/owner/settings.html 200
+
+/logo.png /assets/logo.png 200
+/favicon.ico /assets/favicon.ico 200
+/shared/auth/logo.png /assets/logo.png 200
+/shared/auth/favicon.ico /assets/favicon.ico 200
+/apps/client/logo.png /assets/logo.png 200
+/apps/client/favicon.ico /assets/favicon.ico 200

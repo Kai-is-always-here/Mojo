@@ -1,0 +1,22 @@
+/* Client auth refinement v2: compact cards, prominent logo, and fast local image background. */
+[data-auth-slideshow]{background:#050505!important;background-repeat:no-repeat;background-position:center;background-size:cover}
+.auth-page .auth-topbar .auth-logo{width:286px;height:160px;max-width:calc(100vw - 120px);max-height:160px;object-fit:fill;justify-self:center}
+.auth-page .auth-topbar .auth-brand-title{display:none}
+.auth-page .auth-topbar .auth-brand-subtitle{margin-top:8px}
+.auth-page .auth-box .btn{min-height:48px;padding:13px 18px;font-size:15px}
+.auth-page .register-card .btn{min-height:48px;padding:13px 18px;font-size:15px}
+.auth-page .client-register-switch{font-size:16px;font-weight:800}
+.auth-page .client-register-switch a{font-size:18px;font-weight:900}
+@media(max-width:560px){
+  .auth-page .auth-topbar .auth-logo{width:286px;height:160px;max-width:calc(100vw - 108px);max-height:160px}
+  .auth-page .auth-layout{padding-top:clamp(106px,18vh,138px);padding-bottom:14px}
+  .auth-page .auth-box .btn,.auth-page .register-card .btn{min-height:46px;padding:12px 16px;font-size:15px}
+}
+@media(max-width:400px){
+  .auth-page .auth-topbar .auth-logo{width:calc(100vw - 96px);height:calc((100vw - 96px) * .55944);max-height:160px}
+}
+@media(max-height:720px) and (max-width:560px){
+  .auth-page .auth-topbar .auth-logo{width:220px;height:123px;max-width:calc(100vw - 108px);max-height:123px}
+  .auth-page .auth-layout{padding-top:88px}
+}
+@media(prefers-reduced-motion:reduce){.auth-slide{transition:none;transform:none}.auth-slide:not(.is-active){display:none}}
